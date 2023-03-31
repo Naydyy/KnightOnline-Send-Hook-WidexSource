@@ -1,0 +1,48 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{7FAD9421-B9D1-49B7-A8F3-BB8F692FEDE4}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="widex.cbproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="..\dll inject\Project1.cbproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="widex">
+			<MSBuild Projects="widex.cbproj"/>
+		</Target>
+		<Target Name="widex:Clean">
+			<MSBuild Targets="Clean" Projects="widex.cbproj"/>
+		</Target>
+		<Target Name="widex:Make">
+			<MSBuild Targets="Make" Projects="widex.cbproj"/>
+		</Target>
+		<Target Name="Project1">
+			<MSBuild Projects="..\dll inject\Project1.cbproj"/>
+		</Target>
+		<Target Name="Project1:Clean">
+			<MSBuild Targets="Clean" Projects="..\dll inject\Project1.cbproj"/>
+		</Target>
+		<Target Name="Project1:Make">
+			<MSBuild Targets="Make" Projects="..\dll inject\Project1.cbproj"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="widex;Project1"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="widex:Clean;Project1:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="widex:Make;Project1:Make"/>
+		</Target>
+		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+	</Project>
